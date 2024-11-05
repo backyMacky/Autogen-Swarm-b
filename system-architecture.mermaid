@@ -1,0 +1,57 @@
+graph TD
+    subgraph User Interface
+        UI[Web Interface]
+        Config[Configuration Settings]
+    end
+
+    subgraph Core Components
+        BA[Business Analyzer]
+        AF[Agent Factory]
+    end
+
+    subgraph Agents
+        AA[Assistant Agent]
+        LA[Librarian Agent]
+        WR[Web Researcher]
+        KA[Keyword Analyst]
+        MR[Market Researcher]
+        TE[Tech Expert]
+        BC[Business Consultant]
+        UP[User Proxy Agent]
+    end
+
+    subgraph External Services
+        OAI[OpenAI API]
+        GS[Google Search API]
+    end
+
+    subgraph Data Processing
+        WS[Web Scraper]
+        KAn[Keyword Analyzer]
+        Cache[Cache System]
+    end
+
+    subgraph Storage
+        Logs[Log Files]
+        VS[Vector Stores]
+    end
+
+    UI --> |Project Brief| BA
+    Config --> BA
+    BA --> |Creates| AF
+    AF --> |Instantiates| Agents
+    
+    WR --> |Uses| WS
+    WS --> |Stores| Cache
+    WS --> |Uses| GS
+    
+    KA --> |Uses| KAn
+    
+    LA --> |Queries| OAI
+    LA --> |Searches| VS
+    
+    BA --> |Logs| Logs
+    WS --> |Logs| Logs
+    
+    Agents --> |Collaborate| BA
+    BA --> |Final Analysis| UI
