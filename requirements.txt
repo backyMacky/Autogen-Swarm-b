@@ -1,0 +1,29 @@
+# Web Framework and Templates
+Flask==3.0.2
+Jinja2==3.1.4
+MarkupSafe==3.0.2
+
+# Web Scraping and HTTP
+beautifulsoup4==4.12.3
+requests==2.32.3
+urllib3==2.2.3
+soupsieve==2.6
+charset-normalizer==3.4.0
+certifi==2024.8.30
+idna==3.10
+
+# HTML Sanitization
+bleach==6.2.0
+webencodings==0.5.1
+
+# NLP and Keyword Extraction
+nltk>=3.6.0
+yake>=0.4.0
+
+# AI and Agents
+openai>=1.0.0
+autogen>=1.0.0
+
+# Data Validation and Type Hints
+pydantic==1.10.18
+typing_extensions==4.12.2
