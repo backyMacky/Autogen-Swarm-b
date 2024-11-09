@@ -1,272 +1,175 @@
-# Business Analysis System Documentation
+# AI Business Analyzer
 
-## Overview
-The Business Analysis System is a sophisticated multi-agent platform that leverages OpenAI's GPT models, web scraping, and collaborative AI agents to provide comprehensive business analysis. The system integrates various specialized components to gather, analyze, and synthesize information from multiple sources.
+**AI Business Analyzer** is a sophisticated Python application designed to perform comprehensive business analysis using multiple AI agents. Leveraging web scraping, keyword analysis, and OpenAI integrations, this system provides data-driven insights to aid in business decision-making processes.
 
 ## Table of Contents
-1. [System Architecture](#system-architecture)
-2. [Core Components](#core-components)
-3. [Key Features](#key-features)
-4. [Configuration](#configuration)
-5. [Agents](#agents)
-6. [Web Scraping & Analysis](#web-scraping--analysis)
-7. [OpenAI Integration](#openai-integration)
-8. [User Interface](#user-interface)
-9. [Logging System](#logging-system)
-10. [Security Features](#security-features)
 
-## System Architecture
+- [Features](#features)
+- [Architecture](#architecture)
+- [Process Flow](#process-flow)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Contributing](#contributing)
+- [License](#license)
+- [Potential Improvements](#potential-improvements)
 
-### High-Level Components
-- Flask Web Application
-- Multi-Agent System (AutoGen)
-- Web Scraping Engine
-- Keyword Analysis System
-- OpenAI Integration Layer
-- Logging & Monitoring System
+## Features
 
-### Data Flow
-1. User Input → Web Interface
-2. Project Brief → Keyword Analysis
-3. Keywords → Web Scraping
-4. Information Gathering → Multi-Agent Analysis
-5. Analysis Results → User Interface
+- **Web Scraping:** Fetches and analyzes content from trusted sources to gather relevant business information.
+- **Keyword Analysis:** Extracts and scores keywords to optimize web searches related to business briefs.
+- **AI Integration:** Utilizes OpenAI's GPT-4 for generating expert advice and handling natural language processing tasks.
+- **Multi-Agent System:** Employs various agents like `LibrarianAgent` and `UserProxyAgent` to collaborate on business analysis.
+- **Progress Monitoring:** Tracks and logs the progress of analysis stages for transparency and debugging.
+- **Flask Web Interface:** Provides a user-friendly web interface for submitting business briefs and viewing analysis results.
+- **Comprehensive Logging:** Maintains detailed logs for all operations, aiding in monitoring and troubleshooting.
+- **Security Enhancements:** Implements input validation, sanitization, and rate limiting to ensure secure operations.
 
-## Core Components
+## Architecture
 
-### 1. Config Class
-```python
-@dataclass
-class Config:
-    OPENAI_API_KEY: str
-    MODEL: str
-    TEMPERATURE: float
-    MAX_ROUND: int
-    SECRET_KEY: str
-    ASSISTANT_ID: str
-    VECTOR_STORE_IDS: List[str]
-    GOOGLE_API_KEY: str
-    GOOGLE_SEARCH_ENGINE_ID: str
+The system is composed of several interconnected modules, each responsible for specific functionalities. Below is the high-level architecture diagram.
+
+```mermaid
+graph TD
+    A[User Interface (Flask App)] --> B[BusinessAnalyzer]
+    B --> C[WebScraper]
+    B --> D[KeywordAnalyzer]
+    B --> E[OpenAIAssistant]
+    B --> F[LibrarianAgent]
+    F --> G[OpenAI API]
+    B --> H[AgentFactory]
+    H --> I[Agent Definitions (agents.json)]
+    B --> J[ProgressMonitor]
+    B --> K[Logging System]
 ```
-- Manages system-wide configuration
-- Handles API keys and model parameters
-- Configures scraping settings and trusted domains
 
-### 2. BusinessAnalyzer
-- Main orchestrator class
-- Initializes and manages all agents
-- Coordinates analysis workflow
-- Handles result compilation
-
-### 3. WebScraper
-- Manages web content extraction
-- Implements rate limiting and caching
-- Validates content quality
-- Handles trusted/blocked domains
-
-### 4. KeywordAnalyzer
-- Extracts key themes and concepts
-- Analyzes user intent
-- Provides relevance scoring
-- Maintains business context patterns
-
-## Key Features
-
-### Multi-Agent Collaboration
-- Coordinated analysis through specialized agents
-- Inter-agent communication
-- Task delegation and synthesis
-- Collective intelligence approach
-
-### Web Research Capabilities
-- Trusted domain filtering
-- Content quality validation
-- Rate-limited requests
-- Cache management
-- Google Custom Search integration
-
-### Advanced Analysis
-- Keyword extraction
-- Intent analysis
-- Pattern recognition
-- Business context awareness
-- Expert knowledge integration
-
-## Configuration
-
-### Environment Variables
+```mermaid
+flowchart TD
+    Start([Start Analysis]) --> A[Initialize Configuration]
+    A --> B[Load Agent Definitions]
+    B --> C[Validate Selected Agents]
+    C --> D[Extract Keywords from Project Brief]
+    D --> E[Perform Google Search]
+    E --> F[Scrape and Analyze Web Articles]
+    F --> G[Generate Expert Advice via LibrarianAgent]
+    G --> H[Run Multi-Agent Collaboration]
+    H --> I[Compile Analysis Results]
+    I --> J[Sanitize and Format HTML Output]
+    J --> End([Return Results to User])
+    
+    subgraph Error Handling
+        C --> |Invalid Agent| X[Log Error]
+        D --> |No Keywords| X
+        F --> |Scraping Error| X
+        G --> |API Error| X
+        H --> |Collaboration Error| X
+        J --> |Sanitization Error| X
+    end
 ```
-OPENAI_API_KEY=your-api-key
-SECRET_KEY=your-secret-key
+
+nstallation
+Prerequisites
+Python 3.8+
+Git
+Clone the Repository
+bash
+Copy code
+git clone https://github.com/yourusername/ai-business-analyzer.git
+cd ai-business-analyzer
+Create a Virtual Environment
+bash
+Copy code
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+Install Dependencies
+bash
+Copy code
+pip install -r requirements.txt
+Configuration
+The application relies on several environment variables for configuration. Create a .env file in the root directory and populate it with the required variables:
+
+env
+Copy code
+OPENAI_API_KEY=your-openai-api-key
+SECRET_KEY=your-flask-secret-key
 ASSISTANT_ID=your-assistant-id
-VECTOR_STORE_IDS=id1,id2,id3
+VECTOR_STORE_IDS=vs_id1,vs_id2,vs_id3
 GOOGLE_API_KEY=your-google-api-key
-GOOGLE_SEARCH_ENGINE_ID=your-search-engine-id
-```
+GOOGLE_SEARCH_ENGINE_ID=your-google-search-engine-id
+Note: Do not commit your .env file to version control. Use .env.example as a template.
 
-### Scraper Configuration
-- Trusted domains list
-- Rate limiting settings
-- Content validation parameters
-- Cache settings
+Usage
+Running the Application
+bash
+Copy code
+python app.py
+The Flask application will start on http://0.0.0.0:5000/. Navigate to this URL in your web browser to access the interface.
 
-## Agents
+Submitting a Business Brief
+Access the Web Interface: Open your browser and go to http://localhost:5000/.
+Fill in the Form:
+Project Brief: Enter a detailed description of your business project.
+Model Configuration: Optionally, select the AI model, temperature, and maximum number of conversation rounds.
+Select Agents: Choose the agents you want to involve in the analysis.
+Submit: Click the "Analyze" button to start the analysis.
+View Results: The analysis results will be displayed in a structured and formatted manner.
+Monitoring Progress
+Access the progress endpoint to monitor the current status of the analysis:
 
-### 1. Assistant Agent
-- Central coordinator
-- Manages agent collaboration
-- Synthesizes findings
+http
+Copy code
+GET /progress
+This endpoint returns a JSON response detailing the current stage, recent activities, and overall progress.
 
-### 2. Librarian Agent
-- Access to scholarly resources
-- File search capabilities
-- Citation management
-- Knowledge base integration
+API Endpoints
+GET /
+Description: Renders the main web interface with the analysis form.
+Parameters: None
+Response: HTML page with the analysis form.
+POST /
+Description: Handles form submissions to initiate business analysis.
+Parameters: Form data including project_brief, model, temperature, max_round, and selected_agents.
+Response: JSON object containing the analysis result or error details.
+GET /progress
+Description: Retrieves the current progress status of the ongoing analysis.
+Parameters: None
+Response: JSON object with progress details.
+Contributing
+Contributions are welcome! Please follow the guidelines below to contribute to the project.
 
-### 3. Web Researcher
-- Web content gathering
-- Source validation
-- Information synthesis
-- Trend analysis
+Steps to Contribute
+Fork the Repository: Click the "Fork" button on the repository page to create a personal copy.
 
-### 4. Keyword Analyst
-- Theme extraction
-- Intent analysis
-- Pattern recognition
-- Search optimization
+Clone the Forked Repository:
 
-### 5. Market Researcher
-- Market analysis
-- Competitive research
-- Customer segmentation
-- Growth opportunity identification
+bash
+Copy code
+git clone https://github.com/yourusername/ai-business-analyzer.git
+cd ai-business-analyzer
+Create a New Branch:
 
-### 6. Tech Expert
-- Technical feasibility assessment
-- Infrastructure planning
-- Risk evaluation
-- Technology stack recommendations
+bash
+Copy code
+git checkout -b feature/YourFeatureName
+Make Changes: Implement your feature or bug fix.
 
-### 7. Business Consultant
-- Financial modeling
-- Resource planning
-- Timeline development
-- Strategic recommendations
+Commit Changes:
 
-## Web Scraping & Analysis
+bash
+Copy code
+git commit -m "Add your commit message"
+Push to GitHub:
 
-### Content Validation
-```python
-def _is_valid_content(self, text: str) -> bool:
-    # Length check
-    if len(text) < self.config.SCRAPER_MIN_CONTENT_LENGTH:
-        return False
-        
-    # Special character ratio
-    special_char_ratio = len([c for c in text 
-        if not c.isalnum() and not c.isspace()]) / len(text)
-    if special_char_ratio > self.config.SCRAPER_MAX_SPECIAL_CHAR_RATIO:
-        return False
-        
-    # Word length analysis
-    words = text.split()
-    avg_word_length = sum(len(word) for word in words) / len(words)
-    return (self.config.SCRAPER_MIN_AVG_WORD_LENGTH <= 
-            avg_word_length <= 
-            self.config.SCRAPER_MAX_AVG_WORD_LENGTH)
-```
+bash
+Copy code
+git push origin feature/YourFeatureName
+Create a Pull Request: Navigate to the repository on GitHub and click "Compare & pull request."
 
-### Keyword Analysis
-- Business pattern matching
-- Relevance scoring
-- Multi-word phrase handling
-- Context multipliers
-
-## OpenAI Integration
-
-### Assistant API
-- Thread management
-- Message handling
-- File search integration
-- Response processing
-
-### Embedding API
-- Text embedding generation
-- Vector store integration
-- Similarity search capabilities
-
-## User Interface
-
-### Web Application
-- Flask-based interface
-- Bootstrap styling
-- Form validation
-- Result presentation
-
-### Configuration Options
-- Model selection
-- Temperature adjustment
-- Maximum rounds setting
-- Project brief input
-
-## Logging System
-
-### Components
-- System logs
-- Scraper logs
-- Analysis logs
-- Cache information
-
-### Log File Structure
-```
-logs/
-├── log_YYYYMMDD_HHMMSS_random.txt
-├── scraper_logs/
-│   ├── scraper_log_YYYYMMDD_HHMMSS.txt
-│   └── cache_info_YYYYMMDD_HHMMSS.json
-```
-
-## Security Features
-
-### Input Validation
-- Form data validation
-- Content sanitization
-- HTML cleaning (Bleach)
-
-### API Security
-- Rate limiting
-- Domain validation
-- Request headers management
-
-### Data Protection
-- Environment variable usage
-- Secret key management
-- Trusted domain enforcement
-
-## Usage Example
-
-```python
-# Initialize configuration
-config = Config()
-
-# Create analyzer instance
-analyzer = BusinessAnalyzer(config)
-
-# Run analysis
-result = analyzer.run_analysis(
-    project_brief="Your project description",
-    model="gpt-4",
-    temperature=0.7,
-    max_round=10
-)
-```
-
-## Error Handling
-
-The system implements comprehensive error handling:
-- API request failures
-- Content validation errors
-- Configuration issues
-- Analysis process errors
-
-Each error is logged with appropriate context and presented to the user through the web interface.
+Coding Standards
+Follow PEP 8 style guidelines.
+Write clear and concise commit messages.
+Include docstrings and comments for complex logic.
+Ensure that the code is well-tested before submission.
+License
+This project is licensed under the MIT License.
