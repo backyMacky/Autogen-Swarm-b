@@ -1,0 +1,46 @@
+graph TB
+    subgraph "Web Layer"
+        A[Flask Web Interface]
+    end
+
+    subgraph "Business Logic Layer"
+        B[Business Analyzer]
+        C[OpenAI Assistant]
+        D[Web Scraper]
+    end
+
+    subgraph "Agent Layer"
+        E[Coordinator Agent]
+        F[Market Analyst Agent]
+        G[Technical Expert Agent]
+        H[Financial Advisor Agent]
+        I[User Proxy Agent]
+    end
+
+    subgraph "External Services"
+        J[OpenAI API]
+        K[Web Resources]
+    end
+
+    A --> B
+    B --> C
+    B --> D
+    B --> E
+    E --> F
+    E --> G
+    E --> H
+    E --> I
+    C --> J
+    D --> K
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#ddf,stroke:#333,stroke-width:2px
+    style D fill:#ddf,stroke:#333,stroke-width:2px
+    style E fill:#dfd,stroke:#333,stroke-width:2px
+    style F fill:#dfd,stroke:#333,stroke-width:2px
+    style G fill:#dfd,stroke:#333,stroke-width:2px
+    style H fill:#dfd,stroke:#333,stroke-width:2px
+    style I fill:#dfd,stroke:#333,stroke-width:2px
+    style J fill:#fdd,stroke:#333,stroke-width:2px
+    style K fill:#fdd,stroke:#333,stroke-width:2px

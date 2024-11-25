@@ -1,31 +1,24 @@
-sequenceDiagram
-    participant U as User
-    participant BA as Business Analyzer
-    participant WS as Web Scraper
-    participant KA as Keyword Analyzer
-    participant AG as Agent Group
-    participant OA as OpenAI Assistant
+stateDiagram-v2
+    [*] --> WebInterface
+    WebInterface --> BusinessAnalyzer: Project Brief
+
+    state BusinessAnalyzer {
+        [*] --> InitializeAgents
+        InitializeAgents --> OpenAIAssistant: Get Initial Insights
+        OpenAIAssistant --> GroupChat: Expert Insights
+        
+        state GroupChat {
+            Coordinator --> MarketAnalyst: Request Analysis
+            MarketAnalyst --> Coordinator: Market Insights
+            Coordinator --> TechExpert: Request Analysis
+            TechExpert --> Coordinator: Technical Insights
+            Coordinator --> FinancialAdvisor: Request Analysis
+            FinancialAdvisor --> Coordinator: Financial Insights
+            Coordinator --> FinalSynthesis: Compile Results
+        }
+        
+        FinalSynthesis --> MarkdownFormatting
+    }
     
-    U->>BA: Submit Project Brief
-    
-    BA->>KA: Extract Keywords
-    KA-->>BA: Return Keywords & Intent Analysis
-    
-    BA->>WS: Gather Web Articles
-    WS->>WS: Search & Filter Content
-    WS-->>BA: Return Relevant Articles
-    
-    BA->>OA: Get Expert Insights
-    OA-->>BA: Return Expert Advice
-    
-    BA->>AG: Initialize Group Chat
-    
-    loop Analysis Rounds
-        AG->>AG: Agent Collaboration
-        Note over AG: Agents share findings
-        Note over AG: Cross-reference information
-        Note over AG: Build on insights
-    end
-    
-    AG-->>BA: Complete Analysis
-    BA-->>U: Return Final Results
+    MarkdownFormatting --> WebInterface: Display Results
+    WebInterface --> [*]
