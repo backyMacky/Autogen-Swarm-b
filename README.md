@@ -42,6 +42,73 @@ Live Demo: [[Demo link](http://77.160.195.198:88/)]
 - OpenAI API key
 - OpenAI Assistant ID
 
+## Architecture
+```mermaid
+classDiagram
+    class Config {
+        +OPENAI_API_KEY: str
+        +MODEL: str
+        +TEMPERATURE: float
+        +MAX_ROUND: int
+        +SECRET_KEY: str
+        +ASSISTANT_ID: str
+        +llm_config(): Dict
+    }
+
+    class WebScraper {
+        -session: Session
+        +scrape_url(url: str): str
+    }
+
+    class OpenAIAssistant {
+        -client: OpenAI
+        -assistant_id: str
+        +get_response(query: str): str
+    }
+
+    class BusinessAnalyzer {
+        -config: Config
+        -openai_assistant: OpenAIAssistant
+        -web_scraper: WebScraper
+        -coordinator: AssistantAgent
+        -market_analyst: AssistantAgent
+        -tech_expert: AssistantAgent
+        -financial_advisor: AssistantAgent
+        -user_proxy: UserProxyAgent
+        +setup_agents()
+        +run_analysis(project_brief: str): str
+    }
+
+    class FlaskApp {
+        +config: Config
+        +HTML_TEMPLATE: str
+        +index(): str
+    }
+
+    class AssistantAgent {
+        +name: str
+        +llm_config: Dict
+        +system_message: str
+    }
+
+    class UserProxyAgent {
+        +name: str
+        +human_input_mode: str
+        +max_consecutive_auto_reply: int
+        +llm_config: Dict
+        +code_execution_config: Dict
+    }
+
+    BusinessAnalyzer --> Config
+    BusinessAnalyzer --> OpenAIAssistant
+    BusinessAnalyzer --> WebScraper
+    BusinessAnalyzer --> AssistantAgent
+    BusinessAnalyzer --> UserProxyAgent
+    FlaskApp --> BusinessAnalyzer
+    FlaskApp --> Config
+    OpenAIAssistant --> Config
+```
+
 ## Quick Start
 
 1. Clone the repository:
@@ -96,6 +163,56 @@ class Config:
    - Financial Analysis
    - Coordinated Insights
 3. **Output**: Receive a comprehensive analysis in formatted Markdown
+
+## Process Flow
+```mermaid
+graph TB
+    subgraph "Web Layer"
+        A[Flask Web Interface]
+    end
+
+    subgraph "Business Logic Layer"
+        B[Business Analyzer]
+        C[OpenAI Assistant]
+        D[Web Scraper]
+    end
+
+    subgraph "Agent Layer"
+        E[Coordinator Agent]
+        F[Market Analyst Agent]
+        G[Technical Expert Agent]
+        H[Financial Advisor Agent]
+        I[User Proxy Agent]
+    end
+
+    subgraph "External Services"
+        J[OpenAI API]
+        K[Web Resources]
+    end
+
+    A --> B
+    B --> C
+    B --> D
+    B --> E
+    E --> F
+    E --> G
+    E --> H
+    E --> I
+    C --> J
+    D --> K
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#ddf,stroke:#333,stroke-width:2px
+    style D fill:#ddf,stroke:#333,stroke-width:2px
+    style E fill:#dfd,stroke:#333,stroke-width:2px
+    style F fill:#dfd,stroke:#333,stroke-width:2px
+    style G fill:#dfd,stroke:#333,stroke-width:2px
+    style H fill:#dfd,stroke:#333,stroke-width:2px
+    style I fill:#dfd,stroke:#333,stroke-width:2px
+    style J fill:#fdd,stroke:#333,stroke-width:2px
+    style K fill:#fdd,stroke:#333,stroke-width:2px
+```
 
 ## Contributing
 
