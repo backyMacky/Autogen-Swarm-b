@@ -109,12 +109,28 @@ class Config:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Documentation and Tutorials
+
+- [AutoGen Documentation](https://microsoft.github.io/autogen/0.2/docs/Getting-Started/)
+- [Flask Documentation](https://flask.palletsprojects.com/en/2.3.x/)
+- [Bootstrap Documentation](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+
+## Related Projects
+
+- [OpenAI's Swarm](https://github.com/openai/swarm)
+- [AgentScan: Multi-Agent Observability](https://github.com/The-Swarm-Corporation/agentscan)
+
+## Community and Support
+
+- [AutoGen Discord Community](https://discord.gg/pAbnFJrkgZ)
+- [Flask Mailing List](https://mail.python.org/mailman/listinfo/flask)
+
 ## Acknowledgments
 
-- OpenAI for GPT models
-- Microsoft AutoGen framework
-- Flask framework
-- Bootstrap for UI
+- [OpenAI](https://openai.com) for GPT models
+- [Microsoft AutoGen Framework](https://microsoft.github.io/autogen/0.2/)
+- [Flask Framework](https://flask.palletsprojects.com/)
+- [Bootstrap](https://getbootstrap.com/) for UI components
 
 ## Support
 
@@ -122,4 +138,4 @@ For issues and feature requests, please use the [GitHub Issues](https://github.c
 
 ---
 
-Made with ❤️ by [backyMacky](https://github.com/backyMacky)
+Made with ❤️ by [Martin Bacigal](https://github.com/backyMacky)
