@@ -1,272 +1,125 @@
-# Business Analysis System Documentation
+# Autogen Swarm Business Analyzer
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![OpenAI](https://img.shields.io/badge/OpenAI-412991.svg?logo=OpenAI&logoColor=white)](https://openai.com)
+[![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)](https://getbootstrap.com/)
+[![GitHub issues](https://img.shields.io/github/issues/backyMacky/Autogen-Swarm-b)](https://github.com/backyMacky/Autogen-Swarm-b/issues)
+[![GitHub stars](https://img.shields.io/github/stars/backyMacky/Autogen-Swarm-b)](https://github.com/backyMacky/Autogen-Swarm-b/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/backyMacky/Autogen-Swarm-b)](https://github.com/backyMacky/Autogen-Swarm-b/network/members)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/backyMacky/Autogen-Swarm-b/graphs/commit-activity)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-## Overview
-The Business Analysis System is a sophisticated multi-agent platform that leverages OpenAI's GPT models, web scraping, and collaborative AI agents to provide comprehensive business analysis. The system integrates various specialized components to gather, analyze, and synthesize information from multiple sources.
+A "sophisticated" business analysis tool that leverages multiple AI agents to provide comprehensive business insights. The system uses OpenAI's GPT models and AutoGen framework to simulate a team of business experts analyzing your project or business idea.
 
-## Table of Contents
-1. [System Architecture](#system-architecture)
-2. [Core Components](#core-components)
-3. [Key Features](#key-features)
-4. [Configuration](#configuration)
-5. [Agents](#agents)
-6. [Web Scraping & Analysis](#web-scraping--analysis)
-7. [OpenAI Integration](#openai-integration)
-8. [User Interface](#user-interface)
-9. [Logging System](#logging-system)
-10. [Security Features](#security-features)
+Live Demo: [[Demo link](http://77.160.195.198:88/)]
 
-## System Architecture
+<a href="https://www.buymeacoffee.com/bloombrine" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
-### High-Level Components
-- Flask Web Application
-- Multi-Agent System (AutoGen)
-- Web Scraping Engine
-- Keyword Analysis System
-- OpenAI Integration Layer
-- Logging & Monitoring System
+## Features
 
-### Data Flow
-1. User Input → Web Interface
-2. Project Brief → Keyword Analysis
-3. Keywords → Web Scraping
-4. Information Gathering → Multi-Agent Analysis
-5. Analysis Results → User Interface
+- 🤖 **Multi-Agent Analysis System**
+  - Market Analysis Expert
+  - Technical Expert
+  - Financial Advisor
+  - Coordination Agent
 
-## Core Components
+- 🧠 **Comprehensive Analysis Coverage**
+  - Market size and potential
+  - Technical feasibility
+  - Financial projections
+  - Risk assessment
 
-### 1. Config Class
-```python
-@dataclass
-class Config:
-    OPENAI_API_KEY: str
-    MODEL: str
-    TEMPERATURE: float
-    MAX_ROUND: int
-    SECRET_KEY: str
-    ASSISTANT_ID: str
-    VECTOR_STORE_IDS: List[str]
-    GOOGLE_API_KEY: str
-    GOOGLE_SEARCH_ENGINE_ID: str
+- 🌐 **Web Interface**
+  - Clean, responsive design
+  - Easy project brief submission
+  - Formatted analysis results
+  - Bootstrap-based UI
+
+## Prerequisites
+
+- Python 3.9+
+- OpenAI API key
+- OpenAI Assistant ID
+
+## Quick Start
+
+1. Clone the repository:
+```bash
+git clone https://github.com/backyMacky/Autogen-Swarm-b.git
+cd Autogen-Swarm-b
 ```
-- Manages system-wide configuration
-- Handles API keys and model parameters
-- Configures scraping settings and trusted domains
 
-### 2. BusinessAnalyzer
-- Main orchestrator class
-- Initializes and manages all agents
-- Coordinates analysis workflow
-- Handles result compilation
+2. Create and activate a virtual environment:
+```bash
+python -m venv env
+source env/bin/activate  # On Windows: env\Scripts\activate
+```
 
-### 3. WebScraper
-- Manages web content extraction
-- Implements rate limiting and caching
-- Validates content quality
-- Handles trusted/blocked domains
+3. Install required packages:
+```bash
+pip install flask openai autogen beautifulsoup4 requests markdown bleach
+```
 
-### 4. KeywordAnalyzer
-- Extracts key themes and concepts
-- Analyzes user intent
-- Provides relevance scoring
-- Maintains business context patterns
+4. Set up your OpenAI API key and Assistant ID in `Config` class
 
-## Key Features
+5. Run the application:
+```bash
+python SwarmOnline.py
+```
 
-### Multi-Agent Collaboration
-- Coordinated analysis through specialized agents
-- Inter-agent communication
-- Task delegation and synthesis
-- Collective intelligence approach
-
-### Web Research Capabilities
-- Trusted domain filtering
-- Content quality validation
-- Rate-limited requests
-- Cache management
-- Google Custom Search integration
-
-### Advanced Analysis
-- Keyword extraction
-- Intent analysis
-- Pattern recognition
-- Business context awareness
-- Expert knowledge integration
+6. Open your browser and navigate to:
+```
+http://localhost:5000
+```
 
 ## Configuration
 
-### Environment Variables
-```
-OPENAI_API_KEY=your-api-key
-SECRET_KEY=your-secret-key
-ASSISTANT_ID=your-assistant-id
-VECTOR_STORE_IDS=id1,id2,id3
-GOOGLE_API_KEY=your-google-api-key
-GOOGLE_SEARCH_ENGINE_ID=your-search-engine-id
-```
-
-### Scraper Configuration
-- Trusted domains list
-- Rate limiting settings
-- Content validation parameters
-- Cache settings
-
-## Agents
-
-### 1. Assistant Agent
-- Central coordinator
-- Manages agent collaboration
-- Synthesizes findings
-
-### 2. Librarian Agent
-- Access to scholarly resources
-- File search capabilities
-- Citation management
-- Knowledge base integration
-
-### 3. Web Researcher
-- Web content gathering
-- Source validation
-- Information synthesis
-- Trend analysis
-
-### 4. Keyword Analyst
-- Theme extraction
-- Intent analysis
-- Pattern recognition
-- Search optimization
-
-### 5. Market Researcher
-- Market analysis
-- Competitive research
-- Customer segmentation
-- Growth opportunity identification
-
-### 6. Tech Expert
-- Technical feasibility assessment
-- Infrastructure planning
-- Risk evaluation
-- Technology stack recommendations
-
-### 7. Business Consultant
-- Financial modeling
-- Resource planning
-- Timeline development
-- Strategic recommendations
-
-## Web Scraping & Analysis
-
-### Content Validation
+Update the `Config` class in SwarmOnline.py:
 ```python
-def _is_valid_content(self, text: str) -> bool:
-    # Length check
-    if len(text) < self.config.SCRAPER_MIN_CONTENT_LENGTH:
-        return False
-        
-    # Special character ratio
-    special_char_ratio = len([c for c in text 
-        if not c.isalnum() and not c.isspace()]) / len(text)
-    if special_char_ratio > self.config.SCRAPER_MAX_SPECIAL_CHAR_RATIO:
-        return False
-        
-    # Word length analysis
-    words = text.split()
-    avg_word_length = sum(len(word) for word in words) / len(words)
-    return (self.config.SCRAPER_MIN_AVG_WORD_LENGTH <= 
-            avg_word_length <= 
-            self.config.SCRAPER_MAX_AVG_WORD_LENGTH)
+@dataclass
+class Config:
+    OPENAI_API_KEY: str = os.getenv('OPENAI_API_KEY', 'your-api-key-here')
+    MODEL: str = "gpt-4o-mini"  # Your preferred model
+    TEMPERATURE: float = 0.7    
+    MAX_ROUND: int = 10        
+    SECRET_KEY: str = field(default_factory=lambda: os.getenv('SECRET_KEY', 'secret-key'))
+    ASSISTANT_ID: str = field(default_factory=lambda: os.getenv('ASSISTANT_ID', ''))
 ```
 
-### Keyword Analysis
-- Business pattern matching
-- Relevance scoring
-- Multi-word phrase handling
-- Context multipliers
+## How It Works
 
-## OpenAI Integration
+1. **Input**: Submit your project brief through the web interface
+2. **Analysis**: Multiple AI agents analyze different aspects:
+   - Market Analysis
+   - Technical Assessment
+   - Financial Analysis
+   - Coordinated Insights
+3. **Output**: Receive a comprehensive analysis in formatted Markdown
 
-### Assistant API
-- Thread management
-- Message handling
-- File search integration
-- Response processing
+## Contributing
 
-### Embedding API
-- Text embedding generation
-- Vector store integration
-- Similarity search capabilities
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
 
-## User Interface
+## License
 
-### Web Application
-- Flask-based interface
-- Bootstrap styling
-- Form validation
-- Result presentation
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### Configuration Options
-- Model selection
-- Temperature adjustment
-- Maximum rounds setting
-- Project brief input
+## Acknowledgments
 
-## Logging System
+- OpenAI for GPT models
+- Microsoft AutoGen framework
+- Flask framework
+- Bootstrap for UI
 
-### Components
-- System logs
-- Scraper logs
-- Analysis logs
-- Cache information
+## Support
 
-### Log File Structure
-```
-logs/
-├── log_YYYYMMDD_HHMMSS_random.txt
-├── scraper_logs/
-│   ├── scraper_log_YYYYMMDD_HHMMSS.txt
-│   └── cache_info_YYYYMMDD_HHMMSS.json
-```
+For issues and feature requests, please use the [GitHub Issues](https://github.com/backyMacky/Autogen-Swarm-b/issues)
 
-## Security Features
+---
 
-### Input Validation
-- Form data validation
-- Content sanitization
-- HTML cleaning (Bleach)
-
-### API Security
-- Rate limiting
-- Domain validation
-- Request headers management
-
-### Data Protection
-- Environment variable usage
-- Secret key management
-- Trusted domain enforcement
-
-## Usage Example
-
-```python
-# Initialize configuration
-config = Config()
-
-# Create analyzer instance
-analyzer = BusinessAnalyzer(config)
-
-# Run analysis
-result = analyzer.run_analysis(
-    project_brief="Your project description",
-    model="gpt-4",
-    temperature=0.7,
-    max_round=10
-)
-```
-
-## Error Handling
-
-The system implements comprehensive error handling:
-- API request failures
-- Content validation errors
-- Configuration issues
-- Analysis process errors
-
-Each error is logged with appropriate context and presented to the user through the web interface.
+Made with ❤️ by [backyMacky](https://github.com/backyMacky)
