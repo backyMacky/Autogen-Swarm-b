@@ -12,7 +12,7 @@
 
 A "sophisticated" business analysis tool that leverages multiple AI agents to provide comprehensive business insights. The system uses OpenAI's GPT models and AutoGen framework to simulate a team of business experts analyzing your project or business idea.
 
-Live Demo: [[Demo link](http://77.160.195.198:88/)]
+Live Demo: [[Demo link](https://procureai.tech/)]
 
 <a href="https://www.buymeacoffee.com/bloombrine" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
