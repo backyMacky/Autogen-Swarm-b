@@ -1,4 +1,3 @@
-
 import os
 import logging
 from datetime import datetime
@@ -35,6 +34,7 @@ class Config:
             }],
             "temperature": self.TEMPERATURE
         }
+
 
 # -----------------------------------
 # Web Scraping
@@ -74,6 +74,7 @@ class WebScraper:
         except Exception as e:
             logging.error(f"Error scraping {url}: {str(e)}")
             return ""
+
 
 # -----------------------------------
 # OpenAI Assistant Integration
@@ -120,6 +121,7 @@ class OpenAIAssistant:
         except Exception as e:
             logging.error(f"Error getting response: {str(e)}")
             return f"Error: {str(e)}"
+
 
 # -----------------------------------
 # Business Analyzer
@@ -307,6 +309,7 @@ class BusinessAnalyzer:
             logging.error(error_message)
             return error_message
 
+
 # -----------------------------------
 # Flask Application
 # -----------------------------------
@@ -315,7 +318,6 @@ app = Flask(__name__)
 config = Config()
 app.config['SECRET_KEY'] = config.SECRET_KEY
 
-# Simplified HTML template
 # HTML Template
 HTML_TEMPLATE = """
 <!DOCTYPE html>
@@ -393,6 +395,8 @@ HTML_TEMPLATE = """
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    project_brief = ""
+    
     if request.method == 'POST':
         project_brief = request.form.get('project_brief', '').strip()
         
@@ -412,7 +416,8 @@ def index():
             result=html_result
         )
     
-    return render_template_string(HTML_TEMPLATE)
+    return render_template_string(HTML_TEMPLATE, project_brief=project_brief)
+
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
